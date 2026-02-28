@@ -39,34 +39,40 @@ describe('Tally Counter API', () => {
     await get('/counter-reset');
   });
 
+  // Tests for GET /counter-read
   describe('GET /counter-read', () => {
     it('should return 200 status', async () => {
       const res = await get('/counter-read');
       assert.strictEqual(res.status, 200);
     });
 
+    // Verify that the count is a number and starts at 0
     it('should return count as a number', async () => {
       const res = await get('/counter-read');
       assert.strictEqual(typeof res.body.count, 'number');
     });
 
+    // Verify that the count starts at 0 after reset
     it('should return 0 after reset', async () => {
       const res = await get('/counter-read');
       assert.strictEqual(res.body.count, 0);
     });
   });
 
+  // Tests for GET /counter-increase
   describe('GET /counter-increase', () => {
     it('should return 200 status', async () => {
       const res = await get('/counter-increase');
       assert.strictEqual(res.status, 200);
     });
 
+    // Verify that the count increases by 1 on the first call
     it('should return 1 after first increase', async () => {
       const res = await get('/counter-increase');
       assert.strictEqual(res.body.count, 1);
     });
 
+    // Verify that the count increases by 1 on each subsequent call
     it('should increment count by 1 on each call', async () => {
       await get('/counter-increase');
       await get('/counter-increase');
@@ -74,6 +80,7 @@ describe('Tally Counter API', () => {
       assert.strictEqual(res.body.count, 3);
     });
 
+    // Verify that the increased count is reflected in counter-read
     it('should be reflected in counter-read after increase', async () => {
       await get('/counter-increase');
       await get('/counter-increase');
@@ -82,12 +89,14 @@ describe('Tally Counter API', () => {
     });
   });
 
+  // Tests for GET /counter-reset
   describe('GET /counter-reset', () => {
     it('should return 200 status', async () => {
       const res = await get('/counter-reset');
       assert.strictEqual(res.status, 200);
     });
 
+    // Verify that the count resets to 0 after calling counter-reset
     it('should return 0 after reset', async () => {
       await get('/counter-increase');
       await get('/counter-increase');
@@ -95,6 +104,7 @@ describe('Tally Counter API', () => {
       assert.strictEqual(res.body.count, 0);
     });
 
+    // Verify that the reset count is reflected in counter-read
     it('should reset count to 0 verified by counter-read', async () => {
       await get('/counter-increase');
       await get('/counter-increase');
