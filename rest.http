@@ -1,0 +1,32 @@
+### Read counter (should be 0 at start)
+GET http://localhost:3000/counter-read
+
+###
+
+### Increase counter (should return 1)
+GET http://localhost:3000/counter-increase
+
+###
+
+### Increase counter (should return 2)
+GET http://localhost:3000/counter-increase
+
+###
+
+### Increase counter (should return 3)
+GET http://localhost:3000/counter-increase
+
+###
+
+### Read counter (should still be 3)
+GET http://localhost:3000/counter-read
+
+###
+
+### Reset counter (should return 0)
+GET http://localhost:3000/counter-reset
+
+###
+
+### Read counter (should be 0 again)
+GET http://localhost:3000/counter-read
